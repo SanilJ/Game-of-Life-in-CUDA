@@ -55,7 +55,6 @@ void solve(int N){
 
   
   /* Intializes integer random number generator */
-  //  srand((unsigned) time(&t));
   srand(123456);
 
   // notice the size of these arrays
@@ -71,9 +70,6 @@ void solve(int N){
       h_Iold[idx(N,i,j)] = rand()%2;
     ls}
   }
-  /* print initial board*/
-  //printf("initial game board:");
-  //print_board(N, h_Iold);
 
   cudaMemcpy(c_Iold, h_Iold, (N+2)*(N+2)*sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(c_Inew, h_Inew, (N+2)*(N+2)*sizeof(float), cudaMemcpyHostToDevice);
@@ -106,8 +102,6 @@ void solve(int N){
   }while(memcmp(h_Inew, h_Iold, (N+2)*(N+2)*sizeof(int))!=0 && count <= maxsteps);
   
   /* print out the cell existence in the whole board, then in cell (1 1) and (10 10)*/
-  //printf("final game board:");
-  // print_board(N, h_Iold);
   printf("I_{1 1} = %d\n",   (int)h_Iold[idx(N,1,1)]);
   printf("I_{10 10} = %d\n", (int)h_Iold[idx(N,10,10)]);
   printf("Took %d steps\n", count);
